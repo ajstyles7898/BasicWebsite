@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savory Haven Restaurant</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d62300;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #d62300;
+        }
+        
+        .cta-button {
+            background-color: #d62300;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #b51e00;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        /* Featured Section */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #d62300;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .featured-dishes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .dish-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .dish-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .dish-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .dish-info {
+            padding: 20px;
+        }
+        
+        .dish-info h3 {
+            margin-bottom: 10px;
+            color: #d62300;
+        }
+        
+        .dish-price {
+            font-weight: 700;
+            color: #333;
+            margin-top: 10px;
+        }
+        
+        /* Menu Section */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .menu-tab {
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            color: #777;
+        }
+        
+        .menu-tab.active {
+            color: #d62300;
+        }
+        
+        .menu-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #d62300;
+        }
+        
+        .menu-content {
+            display: none;
+        }
+        
+        .menu-content.active {
+            display: block;
+        }
+        
+        .menu-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item-info {
+            flex: 1;
+        }
+        
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item-title h3 {
+            color: #333;
+        }
+        
+        .menu-item-price {
+            font-weight: 700;
+            color: #d62300;
+        }
+        
+        .menu-item-desc {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        /* Reservation Section */
+        .reservation {
+            background-color: #f9f9f9;
+        }
+        
+        .reservation-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            background-color: #d62300;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #b51e00;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #333;
+            color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #d62300;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            margin-right: 10px;
+            color: #d62300;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: #d62300;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #b51e00;
+        }
+        
+        .contact-map {
+            height: 300px;
+            background-color: #555;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">Savoryry Haven</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#reservation">Reservations</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" class="cta-button">Order Online</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Savory Haven</h1>
+                <p>Where culinary excellence meets warm hospitality</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="cta-button">View Our Menu</a>
+                    <a href="#reservation" class="cta-button">Book a Table</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Dishes -->
+    <section class="featured">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Dishes</h2>
+                <p>Our chef's selections that captivate taste buds and create memorable dining experiences</p>
+            </div>
+            <div class="featured-dishes">
+                <div class="dish-card">
+                    <div class="dish-img" style="background-image: url('/api/placeholder/300/200');"></div>
+                    <div class="dish-info">
+                        <h3>Grilled Salmon</h3>
+                        <p>Fresh Atlantic salmon with lemon butter sauce and seasonal vegetables</p>
+                        <div class="dish-price">$24.99</div>
+                    </div>
+                </div>
+                <div class="dish-card">
+                    <div class="dish-img" style="background-image: url('/api/placeholder/300/200');"></div>
+                    <div class="dish-info">
+                        <h3>Truffle Risotto</h3>
+                        <p>Creamy arborio rice with wild mushrooms and truffle oil</p>
+                        <div class="dish-price">$19.99</div>
+                    </div>
+                </div>
+                <div class="dish-card">
+                    <div class="dish-img" style="background-image: url('/api/placeholder/300/200');"></div>
+                    <div class="dish-info">
+                        <h3>Beef Wellington</h3>
+                        <p>Prime beef fillet with mushroom duxelles wrapped in puff pastry</p>
+                        <div class="dish-price">$32.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Menu</h2>
+                <p>Carefully crafted dishes using the finest local ingredients</p>
+            </div>
+
+            <div class="menu-tabs">
+                <div class="menu-tab active" data-tab="breakfast">Breakfast</div>
+                <div class="menu-tab" data-tab="lunch">Lunch</div>
+                <div class="menu-tab" data-tab="dinner">Dinner</div>
+                <div class="menu-tab" data-tab="all-day">All Day</div>
+            </div>
+
+            <!-- Breakfast Menu -->
+            <div class="menu-content active" id="breakfast">
+                <div class="menu-list">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Classic Eggs Benedict</h3>
+                                <div class="menu-item-price">$14.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Poached eggs on English muffin with Canadian bacon and hollandaise sauce
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Avocado Toast</h3>
+                                <div class="menu-item-price">$12.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Sourdough toast topped with smashed avocado, poached egg, and microgreens
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Blueberry Pancakes</h3>
+                                <div class="menu-item-price">$10.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Fluffy pancakes with fresh blueberries and maple syrup
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lunch Menu -->
+            <div class="menu-content" id="lunch">
+                <div class="menu-list">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Grilled Chicken Salad</h3>
+                                <div class="menu-item-price">$16.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Mixed greens with grilled chicken, avocado, cherry tomatoes, and balsamic vinaigrette
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Angus Beef Burger</h3>
+                                <div class="menu-item-price">$18.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Hand-formed patty with aged cheddar, caramelized onions, and house sauce on brioche bun
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Mediterranean Pasta</h3>
+                                <div class="menu-item-price">$17.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Penne pasta with sun-dried tomatoes, olives, feta cheese, and fresh herbs
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dinner Menu -->
+            <div class="menu-content" id="dinner">
+                <div class="menu-list">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Filet Mignon</h3>
+                                <div class="menu-item-price">$34.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                8oz center-cut tenderloin with red wine reduction and truffle mashed potatoes
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Seafood Risotto</h3>
+                                <div class="menu-item-price">$28.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Creamy arborio rice with shrimp, scallops, mussels, and saffron
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Rack of Lamb</h3>
+                                <div class="menu-item-price">$32.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Herb-crusted New Zealand lamb rack with rosemary jus and roasted vegetables
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Day Menu -->
+            <div class="menu-content" id="all-day">
+                <div class="menu-list">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Classic French Onion Soup</h3>
+                                <div class="menu-item-price">$9.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Caramelized onion soup with gruyère cheese and toasted bread
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Truffle Fries</h3>
+                                <div class="menu-item-price">$8.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Hand-cut fries with truffle oil, parmesan cheese, and herbs
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-title">
+                                <h3>Cheese & Charcuterie Board</h3>
+                                <div class="menu-item-price">$22.99</div>
+                            </div>
+                            <div class="menu-item-desc">
+                                Selection of artisanal cheeses and cured meats with accompaniments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section class="reservation" id="reservation">
+        <div class="container">
+            <div class="section-title">
+                <h2>Book a Table</h2>
+                <p>Reserve your dining experience with us</p>
+            </div>
+            <div class="reservation-form">
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Number of Guests</label>
+                        <select id="guests" name="guests" required>
+                            <option value="">Select</option>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5 People</option>
+                            <option value="6">6 People</option>
+                            <option value="7+">7+ People</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="special-requests">Special Requests</label>
+                        <input type="text" id="special-requests" name="special-requests">
+                    </div>
+                    <button type="submit" class="submit-btn">Reserve Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>We'd love to hear from you</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-details">
+                        <p><i>📍</i> 123 Gourmet Avenue, Culinary District, CA 90210</p>
+                        <p><i>📞</i> (555) 123-4567</p>
+                        <p><i>✉️</i> info@savoryhaven.com</p>
+                        <p><i>🕒</i> Open Daily: 7:00 AM - 11:00 PM</p>
+                    </div>
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i>FB</i></a>
+                        <a href="#"><i>IG</i></a>
+                        <a href="#"><i>TW</i></a>
+                        <a href="#"><i>YT</i></a>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <!-- Placeholder for map -->
+                    <div style="background: #555; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa;">
+                        Interactive Map Would Display Here
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Savory Haven Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Menu Tabs -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.menu-tab');
+            const contents = document.querySelectorAll('.menu-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+            
+            // Form submission (prevent default for demo)
+            const form = document.getElementById('booking-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your reservation request! We will confirm your booking shortly.');
+                form.reset();
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    if(this.getAttribute('href') !== '#') {
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
