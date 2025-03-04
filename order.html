@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Online - Savory Haven</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Order Online</h1>
+        <div class="menu-tabs">
+            <div class="menu-tab active" data-tab="breakfast">Breakfast</div>
+            <div class="menu-tab" data-tab="lunch">Lunch</div>
+            <div class="menu-tab" data-tab="dinner">Dinner</div>
+            <div class="menu-tab" data-tab="all-day">All Day</div>
+        </div>
+        <div class="menu-content active" id="breakfast">
+            <div class="menu-item">
+                <h3>Grilled Salmon - $24.99</h3>
+                <button onclick="addToCart('Grilled Salmon', 24.99)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <h3>Truffle Risotto - $19.99</h3>
+                <button onclick="addToCart('Truffle Risotto', 19.99)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <h3>Beef Wellington - $32.99</h3>
+                <button onclick="addToCart('Beef Wellington', 32.99)">Add to Cart</button>
+            </div>
+        </div>
+        <div class="menu-content" id="lunch">
+            <!-- Lunch items go here -->
+        </div>
+        <div class="menu-content" id="dinner">
+            <!-- Dinner items go here -->
+        </div>
+        <div class="menu-content" id="all-day">
+            <!-- All Day items go here -->
+        </div>
+        <div class="cart">
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <div class="total" id="total-amount">Total: $0.00</div>
+            <button class="back-button" onclick="goBack()">Back</button>
+            <button class="payment-button" onclick="proceedToPayment()">Proceed to Payment</button>
+        </div>
+    </div>
+    <script src="js/scripts.js"></script>
+    <script>
+        let cart = [];
+        let totalAmount = 0;
+
+        function addToCart(item, price) {
+            cart.push({ item, price });
+            totalAmount += price;
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+            totalAmount -= cart[index].price;
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach((cartItem, index) => {
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <h4>${cartItem.item} - $${cartItem.price.toFixed(2)}</h4>
+                        <button onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+            });
+            document.getElementById('total-amount').innerText = `Total: $${totalAmount.toFixed(2)}`;
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function proceedToPayment() {
+            alert('Proceeding to payment...');
+            // Implement payment functionality here
+        }
+    </script>
+</body>
+</html>
