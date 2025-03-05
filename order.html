@@ -10,34 +10,16 @@
     <div class="container">
         <h1>Order Online</h1>
         <div class="menu-tabs">
-            <div class="menu-tab active" data-tab="breakfast">Breakfast</div>
-            <div class="menu-tab" data-tab="lunch">Lunch</div>
-            <div class="menu-tab" data-tab="dinner">Dinner</div>
-            <div class="menu-tab" data-tab="all-day">All Day</div>
+            <div class="menu-tab order-tab active" data-tab="order-breakfast">Breakfast</div>
+            <div class="menu-tab order-tab" data-tab="order-lunch">Lunch</div>
+            <div class="menu-tab order-tab" data-tab="order-dinner">Dinner</div>
+            <div class="menu-tab order-tab" data-tab="order-all-day">All Day</div>
         </div>
-        <div class="menu-content active" id="breakfast">
-            <div class="menu-item">
-                <h3>Grilled Salmon - $24.99</h3>
-                <button onclick="addToCart('Grilled Salmon', 24.99)">Add to Cart</button>
-            </div>
-            <div class="menu-item">
-                <h3>Truffle Risotto - $19.99</h3>
-                <button onclick="addToCart('Truffle Risotto', 19.99)">Add to Cart</button>
-            </div>
-            <div class="menu-item">
-                <h3>Beef Wellington - $32.99</h3>
-                <button onclick="addToCart('Beef Wellington', 32.99)">Add to Cart</button>
-            </div>
-        </div>
-        <div class="menu-content" id="lunch">
-            <!-- Lunch items go here -->
-        </div>
-        <div class="menu-content" id="dinner">
-            <!-- Dinner items go here -->
-        </div>
-        <div class="menu-content" id="all-day">
-            <!-- All Day items go here -->
-        </div>
+        
+        <div class="menu-content order-content active" id="order-breakfast" style="display: block;"></div>
+        <div class="menu-content order-content" id="order-lunch" style="display: none;"></div>
+        <div class="menu-content order-content" id="order-dinner" style="display: none;"></div>
+        <div class="menu-content order-content" id="order-all-day" style="display: none;"></div>
         <div class="cart">
             <h2>Your Cart</h2>
             <div id="cart-items"></div>
@@ -46,7 +28,22 @@
             <button class="payment-button" onclick="proceedToPayment()">Proceed to Payment</button>
         </div>
     </div>
-    <script src="js/scripts.js"></script>
+    <script src="js/scripts.js" defer></script>
+
+    <script>
+        function loadOrderMenu() {
+            fetch('food-items.json')
+                .then(response => response.json())
+                .then(data => {
+                    displayFoodItems(data.items);
+                })
+                .catch(error => console.error('Error fetching food items:', error));
+        }
+    
+        document.addEventListener('DOMContentLoaded', loadOrderMenu);
+    </script>
+    
+    
     <script>
         let cart = [];
         let totalAmount = 0;

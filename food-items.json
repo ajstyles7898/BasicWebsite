@@ -1,0 +1,88 @@
+{
+    "items": [
+        {
+            "name": "Classic Eggs Benedict",
+            "price": 14.99,
+            "image": "images/eggs-benedict.jpg",
+            "availability": "available",
+            "category": "breakfast"
+        },
+        {
+            "name": "Avocado Toast",
+            "price": 12.99,
+            "image": "images/avocado-toast.jpg",
+            "availability": "available",
+            "category": "breakfast"
+        },
+        {
+            "name": "Blueberry Pancakes",
+            "price": 10.99,
+            "image": "images/blueberry-pancakes.jpg",
+            "availability": "available",
+            "category": "breakfast"
+        },
+        {
+            "name": "Grilled Chicken Salad",
+            "price": 16.99,
+            "image": "images/grilled-chicken-salad.jpg",
+            "availability": "available",
+            "category": "lunch"
+        },
+        {
+            "name": "Angus Beef Burger",
+            "price": 18.99,
+            "image": "images/angus-beef-burger.jpg",
+            "availability": "unavailable",
+            "category": "lunch"
+        },
+        {
+            "name": "Mediterranean Pasta",
+            "price": 17.99,
+            "image": "images/mediterranean-pasta.jpg",
+            "availability": "available",
+            "category": "lunch"
+        },
+        {
+            "name": "Filet Mignon",
+            "price": 34.99,
+            "image": "images/filet-mignon.jpg",
+            "availability": "available",
+            "category": "dinner"
+        },
+        {
+            "name": "Seafood Risotto",
+            "price": 28.99,
+            "image": "images/seafood-risotto.jpg",
+            "availability": "available",
+            "category": "dinner"
+        },
+        {
+            "name": "Rack of Lamb",
+            "price": 32.99,
+            "image": "images/rack-of-lamb.jpg",
+            "availability": "unavailable",
+            "category": "dinner"
+        },
+        {
+            "name": "Classic French Onion Soup",
+            "price": 9.99,
+            "image": "images/french-onion-soup.jpg",
+            "availability": "available",
+            "category": "all-day"
+        },
+        {
+            "name": "Truffle Fries",
+            "price": 8.99,
+            "image": "images/truffle-fries.jpg",
+            "availability": "available",
+            "category": "all-day"
+        },
+        {
+            "name": "Cheese & Charcuterie Board",
+            "price": 22.99,
+            "image": "images/cheese-charcuterie-board.jpg",
+            "availability": "available",
+            "category": "all-day"
+        }
+    ]
+}

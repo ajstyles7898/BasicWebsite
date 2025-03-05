@@ -18,7 +18,8 @@
                     <li><a href="#reservation">Reservations</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="order.html" class="cta-button">Order Online</a></li>
-                    <li><a href="login.html" class="cta-button">Admin Login</a></li>
+                    <li><a href="login.html" class="cta-button">Admin</a></li>
+                    <li class="admin-only"><a href="#" onclick="logout()" class="cta-button">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -52,20 +53,47 @@
 
     <script src="js/scripts.js"></script>
     <script>
-        // Function to load HTML content into a specified element
-        function loadHTML(url, elementId) {
+        function loadHTML(url, elementId, callback) {
             fetch(url)
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById(elementId).innerHTML = data;
+                    if (localStorage.getItem('isAdmin') === 'true') {
+                        document.body.classList.add('admin');
+                    }
+                    if (callback) callback(); // Run callback function after content loads
                 })
                 .catch(error => console.error('Error loading HTML:', error));
         }
-
-        // Load sections dynamically
-        loadHTML('partials/menu.html', 'menu-section');
+    
+        // Load sections dynamically and initialize scripts after menu loads
+        loadHTML('partials/menu.html', 'menu-section', function() {
+            initializeMenuTabs(); // Call tab-switching function after content loads
+        });
         loadHTML('partials/reservation.html', 'reservation-section');
         loadHTML('partials/contact.html', 'contact-section');
+    
+        function initializeMenuTabs() {
+            const tabs = document.querySelectorAll('.menu-tab');
+            const contents = document.querySelectorAll('.menu-content');
+    
+            if (!tabs.length || !contents.length) return; // Exit if no elements found
+    
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+        }
     </script>
+    
 </body>
 </html>
